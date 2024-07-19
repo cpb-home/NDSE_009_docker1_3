@@ -1,0 +1,75 @@
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker run -it -d --name second_node -v %cd%/data:/var/second/data node:20.10 /bin/sh
+0d955024250dfda868e56812c937ad0e7f53255a32dfd5f9314319f9db2f905e
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker ps
+CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS         PORTS     NAMES
+0d955024250d   node:20.10   "docker-entrypoint.s…"   7 seconds ago   Up 7 seconds             second_node
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker run -it -d --name first_node -v %cd%/data:/var/first/data node:20.10 /bin/sh   
+b76fab035ee40f15e94a3f55bc6bae86a02f21bb734f8e7c752535223f19bf19
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker ps
+CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS         PORTS     NAMES
+b76fab035ee4   node:20.10   "docker-entrypoint.s…"   5 seconds ago   Up 4 seconds             first_node
+0d955024250d   node:20.10   "docker-entrypoint.s…"   4 hours ago     Up 4 hours               second_node
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker exec -it first_node /bin/sh
+# touch var/first/data/file.txt
+# echo Вот так! > var/first/data/file.txt
+# ^C
+# exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug first_node
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker exec -it second_node /bin/sh
+# ls /var/second/data
+file.txt
+# exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug second_node
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker stop first_node
+first_node
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker stop second_node 
+second_node
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker ps -a
+CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS                       PORTS     NAMES
+b76fab035ee4   node:20.10   "docker-entrypoint.s…"   13 minutes ago   Exited (137) 2 minutes ago             first_node
+0d955024250d   node:20.10   "docker-entrypoint.s…"   4 hours ago      Exited (137) 2 minutes ago             second_node
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker rm -f first_node
+first_node
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker rm -f second_node
+second_node
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker ps -a             
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker rmi node:20.10
+Untagged: node:20.10
+Untagged: node@sha256:8d0f16fe841577f9317ab49011c6d819e1fa81f8d4af7ece7ae0ac815e07ac84
+Deleted: sha256:67d9cdb160166226de55337f6b14c44d576cf14f10cd0fb9fbd7854b04dad8ba
+Deleted: sha256:f74e49f436afb9c8e5c6497cb3b1a423b58d2afa4367abb632f9804dc0bcacdf
+Deleted: sha256:55f845530c6cbe0cb4e8b2fbbb5722826dab4681a3627c7f73c104d9a62ccfc5
+Deleted: sha256:00fbfcf84f756c96cde6b48edda29b1346612591c0d706ed2cd24b4788b43f47
+Deleted: sha256:2fc9308eaf9d6ffbaaa664ea2862ea550640e587a98584199589fc122b817d31
+Deleted: sha256:5d56f3849a5a5c75817479f9824c9769071443821c6f840f437bd5b06d2d362c
+Deleted: sha256:1480c0bdd0fdaf4a3554efe78d85b5a25e26a3e782f887602e7af7ef7230fb76
+Deleted: sha256:f6840d780fd90d348995d50d33a0e1aed6d23076ae7b850aa19ea7ef707d2200
+Deleted: sha256:ae134c61b154341a1dd932bd88cb44e805837508284e5d60ead8e94519eb339f
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>docker images
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+alpine       latest    a606584aa9aa   4 weeks ago   7.8MB
+
+F:\learning\NODE.JS\projects\NDSE_009_docker1_3>
